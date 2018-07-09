@@ -1,0 +1,28 @@
+{
+    "name": "stock-site-react2",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "bootstrap": "^4.1.1",
+        "chart.js": "^2.7.2",
+        "chartjs": "^0.3.24",
+        "eslint": "^3.19.0",
+        "fincal": "^1.0.6",
+        "jquery": "^3.3.1",
+        "jquey": "0.0.1-security",
+        "react": "^16.4.1",
+        "react-chartjs-2": "^2.7.2",
+        "react-dom": "^16.4.1",
+        "react-popper": "^1.0.0",
+        "react-scripts": "1.1.4",
+        "react-transition-group": "^2.4.0",
+        "reactstrap": "^6.2.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    },
+    "devDependencies": {}
+}
