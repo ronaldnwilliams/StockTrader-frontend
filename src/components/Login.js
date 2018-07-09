@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import logo from '../images/logo.png';
 
 class Login extends Component {
     constructor(props) {
@@ -22,12 +22,17 @@ class Login extends Component {
 
     render() {
         return (
-          <div className='form-group jumbotron bg-dark mt-5 border rounded border-light' >
+          <div className='form-group jumbotron bg-dark border rounded border-light' >
             <form onSubmit={ e => this.props.handleLogin(e, this.state) }>
-              <div className='row justify-content-center align-items-center mx-auto my-5'>
+              <div className='row justify-content-center align-items-center mx-auto'>
                 <h1>Welcome to Stock Trade<span className='text-warning'>R</span></h1>
               </div>
-              <div className='card bg-light w-50 mx-auto text-dark my-5 py-3'>
+              {/* <div className='row justify-content-center align-items-center mx-auto'>
+              </div> */}
+              <div className='card bg-light w-50 mx-auto text-dark mb-5 py-3'>
+                <div className='row justify-content-center align-items-center'>
+                  <img src={logo} alt='logo' />
+                </div>
                 <div className='row justify-content-center align-items-center mx-auto'>
                   <label className='p-1 mr-1' htmlFor="username">Username</label>
                   <input

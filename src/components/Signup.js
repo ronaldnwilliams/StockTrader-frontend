@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from '../images/logo.png';
 
 
 class Signup extends Component {
@@ -7,7 +8,8 @@ class Signup extends Component {
         this.state = {
             email: '',
             username: '',
-            password: ''
+            password: '',
+            rePassword: ''
         };
     }
 
@@ -23,12 +25,15 @@ class Signup extends Component {
 
     render() {
         return (
-          <div className='form-group jumbotron bg-dark mt-5 border rounded border-light'>
+          <div className='form-group jumbotron bg-dark border rounded border-light'>
             <form onSubmit={ e => this.props.handleSignup(e, this.state) }>
-              <div className='row justify-content-center align-items-center mx-auto my-5'>
+              <div className='row justify-content-center align-items-center mx-auto'>
                 <h1>Welcome to Stock Trade<span className='text-warning'>R</span></h1>
               </div>
               <div className='card bg-light w-50 mx-auto text-dark my-5 py-3'>
+                <div className='row justify-content-center align-items-center'>
+                  <img src={logo} alt='logo' />
+                </div>
                 <div className='row justify-content-center align-items-center mx-auto'>
                   <label className='p-1 ml-5 mr-3' htmlFor="email">Email</label>
                   <input
@@ -62,7 +67,9 @@ class Signup extends Component {
                   <input
                     className='ml-1'
                     type="password"
-                    name="re-password"
+                    name="rePassword"
+                    value={ this.state.rePassword }
+                    onChange={ this.handleChange }
                   />
                 </div>
                 <div className='row justify-content-center align-items-center mx-auto mt-3 w-50'>

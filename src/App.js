@@ -27,6 +27,11 @@ class StockSite extends Component {
         this.getData();
     }
 
+    // TODO: add indicies https://api.iextrading.com/1.0/stock/DIA/app-global-data
+    // TODO: add live updates maybe make a switch; every second; dont hit database
+    // TODO: add top gainers / losers
+    // TODO: add top users / user trades
+    // TODO: sign up page; verify password
     getData = (data = 0, method = 0, range = this.state.balanceRange) => {
         if (this.state.loggedIn) {
             const initObject = this.getInitObject(data, method);
@@ -345,24 +350,38 @@ class StockSite extends Component {
 
     handleSignup = (e, data) => {
         e.preventDefault();
-        // https://stock-site-rnw.herokuapp.com/users/
-        fetch('https://stock-site-rnw.herokuapp.com/users/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then((result) => {
-                localStorage.setItem('token', result.token);
-                this.setState({
-                    loggedIn: true,
-                    accountPage: true,
-                    isLoaded: false
-                });
-                this.getData();
-            });
+        var error;
+        if (data['password'] !== data['rePassword']) {
+          error = {message: `Passwords do not match.`};
+          this.setState({ error: error });
+        }
+        if (data['username'].length < 4) {
+          error = {message: `Username must be at least four characters long.`};
+          this.setState({ error: error });
+        }
+        if (data['password'].length < 6) {
+          error = {message: `Password must be at least six characters long.`};
+          this.setState({ error: error });
+        } else {
+          // https://stock-site-rnw.herokuapp.com/users/
+          fetch('https://stock-site-rnw.herokuapp.com/users/', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+              })
+              .then(res => res.json())
+              .then((result) => {
+                  localStorage.setItem('token', result.token);
+                  this.setState({
+                      loggedIn: true,
+                      accountPage: true,
+                      isLoaded: false
+                  });
+                  this.getData();
+              });
+        }
     }
 
     handleLogout = () => {
