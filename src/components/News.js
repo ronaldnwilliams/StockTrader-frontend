@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Collapse, Button } from 'reactstrap';
-
 
 
 function Article(props) {

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem } from 'reactstrap';
-import InputBar from './InputBar';
 
 
 class SiteNav extends Component {

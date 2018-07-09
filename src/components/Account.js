@@ -23,7 +23,6 @@ class StockRow extends Component {
 
   render() {
       const stock = this.props.stock;
-      const purchaseDate = new Date(stock.purchase_date).toDateString();
       const stockMarketValue = Number(stock.quote.latestPrice) * Number(stock.quantity);
       const stockCostBasis = Number(stock.purchase_price) * Number(stock.quantity);
       const gainLoss = stockMarketValue - stockCostBasis;

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
 import SiteNav from './components/SiteNav';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import StockList from './components/StockList';
 import Account from './components/Account';
 import Quote from './components/Quote';
 import './App.css';
@@ -33,7 +31,7 @@ class StockSite extends Component {
         if (this.state.loggedIn) {
             const initObject = this.getInitObject(data, method);
             // https://stock-site-rnw.herokuapp.com/
-            const backendURL = 'http://localhost:8000/current_user/';
+            const backendURL = 'https://stock-site-rnw.herokuapp.com/current_user/';
             fetch(backendURL, initObject)
               .then((res) => {
                 if (initObject.method && res.status === 400) {
@@ -236,6 +234,7 @@ class StockSite extends Component {
     }
 
     handleBuyStock = (symbol, quantity) => {
+      var error;
       if (Number.isInteger(Number(quantity))) {
         if (Number(quantity) > 0) {
           const data = {
@@ -246,12 +245,12 @@ class StockSite extends Component {
           const method = 'POST';
           this.getData(data, method);
         } else {
-          var error = {message: `${quantity} was entered for quantity. Number
+          error = {message: `${quantity} was entered for quantity. Number
           must be positive. Short selling is currently not available`};
           this.setState({ error: error });
         }
       } else {
-        var error = {message: `${quantity} is not a number.`};
+        error = {message: `${quantity} is not a number.`};
         this.setState({ error: error });
       }
     }
@@ -267,6 +266,7 @@ class StockSite extends Component {
     }
 
     handleAddWatchStock = (symbol) => {
+      var error;
       var alreadyOwn = false;
       var onList = false;
       this.state.user.portfolio.stocks.forEach((stock) => {
@@ -297,10 +297,10 @@ class StockSite extends Component {
               }
             });
       } else if (onList && !alreadyOwn) {
-        var error = {message: `${symbol} is already on your watch list.`};
+        error = {message: `${symbol} is already on your watch list.`};
         this.setState({ error: error });
       } else {
-        var error = {message: `You own ${symbol}. It is already on your
+        error = {message: `You own ${symbol}. It is already on your
         stock list.`};
         this.setState({ error: error });
       }
@@ -324,7 +324,7 @@ class StockSite extends Component {
     handleLogin = (e, data) => {
         e.preventDefault();
         // https://stock-site-rnw.herokuapp.com/token-auth/
-        fetch('http://localhost:8000/token-auth/', {
+        fetch('https://stock-site-rnw.herokuapp.com/token-auth/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -346,7 +346,7 @@ class StockSite extends Component {
     handleSignup = (e, data) => {
         e.preventDefault();
         // https://stock-site-rnw.herokuapp.com/users/
-        fetch('http://localhost:8000/users/', {
+        fetch('https://stock-site-rnw.herokuapp.com/users/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
