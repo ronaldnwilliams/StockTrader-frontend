@@ -318,6 +318,7 @@ class StockSite extends Component {
 
     handleLogin = (e, data) => {
         e.preventDefault();
+        var error;
         // https://stock-site-rnw.herokuapp.com/token-auth/
         fetch('https://stock-site-rnw.herokuapp.com/token-auth/', {
                 method: 'POST',
@@ -328,13 +329,20 @@ class StockSite extends Component {
             })
             .then(res => res.json())
             .then((result) => {
-                localStorage.setItem('token', result.token);
-                this.setState({
-                    loggedIn: true,
-                    accountPage: true,
-                    isLoaded: false
-                });
-                this.getData();
+                if (result['non_field_errors']) {
+                  error = {message: result['non_field_errors'][0]};
+                  this.setState({
+                    error
+                  });
+                } else {
+                  localStorage.setItem('token', result.token);
+                  this.setState({
+                      loggedIn: true,
+                      accountPage: true,
+                      isLoaded: false
+                  });
+                  this.getData();
+                }
             });
     }
 
@@ -361,13 +369,13 @@ class StockSite extends Component {
               })
               .then(res => res.json())
               .then((result) => {
-                  localStorage.setItem('token', result.token);
-                  this.setState({
-                      loggedIn: true,
-                      accountPage: true,
-                      isLoaded: false
-                  });
-                  this.getData();
+                localStorage.setItem('token', result.token);
+                this.setState({
+                    loggedIn: true,
+                    accountPage: true,
+                    isLoaded: false
+                });
+                this.getData();
               });
         }
     }

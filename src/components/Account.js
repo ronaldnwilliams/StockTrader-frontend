@@ -82,7 +82,7 @@ class StockTable extends Component {
                   <th>Gain / Loss</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 { rows }
               </tbody>
             </table>
