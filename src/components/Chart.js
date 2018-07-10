@@ -105,6 +105,14 @@ class Chart extends Component {
                         drawTicks: false,
                       },
                       ticks: {
+                        callback: function(value, index, values) {
+                          if (values.length > 150) {
+                            // Hide the label of every 2nd dataset. return null to hide the grid line too
+            								return index % 2 === 0 ? value : '';
+                          } else {
+                            return value;
+                          }
+          							},
                         fontColor: '#fff',
                         display: true,
                       }
@@ -118,6 +126,14 @@ class Chart extends Component {
                         drawTicks: false,
                       },
                       ticks: {
+                        callback: function(value, index, values) {
+                          if (values.length > 150) {
+                            // Hide the label of every 2nd dataset. return null to hide the grid line too
+            								return index % 2 === 0 ? value : '';
+                          } else {
+                            return value;
+                          }
+          							},
                         display: true,
                         fontColor: '#fff',
                       }

@@ -66,49 +66,43 @@ class StockSite extends Component {
                     .then((chartResult) => {
                         this.addChartsToStocks(stocks, chartResult, range);
                     });
-                    // Get quote data for each stock
-                    var quoteDataAPI = fetch(quoteUrl)
-                      .then(res => res.json())
-                      .then((quoteResult) => {
-                          stocks.forEach((stock) => {
-                              stock['quote'] = quoteResult[stock.symbol]['quote'];
-                          });
-                          watchStocks.forEach((watchStock) => {
-                            watchStock['quote'] =
-                              quoteResult[watchStock.symbol]['quote'];
-                          });
+                  // Get quote data for each stock
+                  var quoteDataAPI =
+                  fetch(quoteUrl)
+                    .then(res => res.json())
+                    .then((quoteResult) => {
+                        stocks.forEach((stock) => {
+                            stock['quote'] = quoteResult[stock.symbol]['quote'];
+                        });
+                        watchStocks.forEach((watchStock) => {
+                          watchStock['quote'] =
+                            quoteResult[watchStock.symbol]['quote'];
+                        });
                       });
                       Promise.all([chartDataAPI, quoteDataAPI]).then(() => {
-                        stocks.forEach((stock) => {
-                          for (var i=0; i<balanceChartData.length; i++) {
-                            if (i < stock.chart.length) {
-                              if (balanceChartData[i]['time'] === stock.chart[i]['minute']) {
-                                // go through chart data and try to find a
-                                // number that is not 0 or undefined else use
-                                // quoted previous close
-                                var stockPrice =
-                                  stock.chart[i].close ?
-                                    Number(stock.chart[i].close) !== 0 ? Number(stock.chart[i].close) :
-                                      Number(stock.chart[i].marketClose) !== 0 ? Number(stock.chart[i].marketClose) :
-                                      Number(stock.chart[i].marketAverage) !== 0 ? Number(stock.chart[i].marketAverage) :
-                                      'n/a' :
-                                    'n/a';
-                                if (isNaN(stockPrice) || stockPrice === 'n/a' || stockPrice === 0) {
-                                  stockPrice = stock.quote['previousClose'];
-                                }
-                                balanceChartData[i]['balance'] +=
-                                  Number(stock.quantity) * stockPrice;
+                        if (range === '1d') {
+                          stocks.forEach((stock) => {
+                            for (var i=0; i<balanceChartData.length; i++) {
+                              // go through chart data and try to find a
+                              // number that is not 0 or undefined else use
+                              // quoted previous close
+                              var stockPrice =
+                                stock.chart[i].close ?
+                                  Number(stock.chart[i].close) !== 0 ? Number(stock.chart[i].close) :
+                                    Number(stock.chart[i].marketClose) !== 0 ? Number(stock.chart[i].marketClose) :
+                                    Number(stock.chart[i].marketAverage) !== 0 ? Number(stock.chart[i].marketAverage) :
+                                    'n/a' :
+                                  'n/a';
+                              if (isNaN(stockPrice) || stockPrice === 'n/a' || stockPrice === 0) {
+                                stockPrice = stock.quote['previousClose'];
                               }
-                            } else {
-                              balanceChartData[i]['balance'] +=
-                                Number(stock.quantity) * Number(stock.quote['latestPrice']);
+                              balanceChartData[i]['balance'] += Number(stock.quantity) * stockPrice;
                             }
-                          }
-
-                        });
-                        balanceChartData.forEach((data) => {
-                          data['balance'] += Number(user.portfolio.cash);
-                        });
+                          });
+                          balanceChartData.forEach((data) => {
+                            data['balance'] += Number(user.portfolio.cash);
+                          });
+                        }
                         this.setState((prevState) => {
                             return {
                                 user: user,
@@ -163,36 +157,13 @@ class StockSite extends Component {
         return stocksStr;
     }
 
-    // loop through each stock and add chart data. if stock
-    // was purchased today and balance range is 1d then
-    // slice only the time for when this stock was purchased
+    // loop through each stock and add chart data.
     addChartsToStocks(stocks, chartResult, range) {
       let today = new Date().toDateString();
       stocks.forEach((stock) => {
           let stockDate = new Date(stock.purchase_date);
           let stockChart = chartResult[stock.symbol]['chart'];
-          // if 1d and bought today
-          if (range === '1d' && stockDate.toDateString() === today) {
-              // get the stock purchase time, loop through the times of the
-              // chart data from api and slice matching times when owned
-              let stockTime = stockDate;
-              let hour = stockTime.getUTCHours() - 4;
-              if (hour < 10) {
-                  hour = '0' + hour.toString();
-              }
-              let minutes = stockTime.getUTCMinutes();
-              let time = (hour + ':' + (minutes < 10 ? '0' + minutes : minutes));
-              stockChart = stockChart.slice(
-                  stockChart.findIndex(
-                    (x) => {
-                      return x['minute'] === time
-                    }
-                  ), stockChart.length - 1
-              );
-              stock['chart'] = stockChart;
-          } else {
-              stock['chart'] = stockChart;
-          }
+          stock['chart'] = stockChart;
       });
     }
 
@@ -481,11 +452,11 @@ class StockSite extends Component {
                   <div className='row justify-content-center align-items-center'>
                     <h1>Loading...</h1>
                   </div>
-                  <div className='row justify-content-center align-items-center'>
+                  {/* <div className='row justify-content-center align-items-center'>
                     <p>This is a free Herku App so it might be waking up
                       <br/> Sorry for the wait!</p>
                     <img src={cat} alt='sleepy cat' />
-                  </div>
+                  </div> */}
                 </div>;
             }
         } else {

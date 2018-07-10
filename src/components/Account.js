@@ -138,13 +138,31 @@ class Account extends Component {
     const todayLabel = new Date().toDateString()
     var chartData = [];
     if (this.props.balanceRange === '1d') {
-      this.props.balanceChartData.forEach((data) => {
+      var oneMinute =
+      this.props.balanceChartData.forEach((data, index, arr) => {
         chartData.push({close: data.balance, label: data.time })
       });
     } else {
       // 1m = 24, 3m = 65, 6m = 126, 1y = 253, 5y = 1259
-      var dailyBalBeforeSignup =
-      this.props.stocks[0].chart.length - this.props.dailyBalance.length;
+      var dailyBalBeforeSignup;
+      switch(this.props.balanceRange) {
+        case '1m':
+          dailyBalBeforeSignup = 24;
+          break;
+        case '3m':
+          dailyBalBeforeSignup = 65;
+          break;
+        case '6m':
+          dailyBalBeforeSignup = 126;
+          break;
+        case '1y':
+          dailyBalBeforeSignup = 253;
+          break;
+        case '5y':
+          dailyBalBeforeSignup = 1259;
+          break;
+      }
+      dailyBalBeforeSignup -= this.props.dailyBalance.length;
       var today = Date.now();
       var oneDayMilli = 60000 * 1440;
       for (let i = 0; chartData.length < dailyBalBeforeSignup; i++) {
@@ -156,7 +174,10 @@ class Account extends Component {
       this.props.dailyBalance.forEach((bal) => {
         chartData.push({close: bal.balance, label: bal.date })
       });
-      chartData.push({close: totalBalance, label: todayLabel})
+      chartData.push({close: totalBalance, label: todayLabel});
+      chartData.sort(function(a, b) {
+        return new Date(a.label) - new Date(b.label);
+      });
     }
     return (
       <div>
