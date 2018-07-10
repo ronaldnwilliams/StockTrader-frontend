@@ -337,13 +337,20 @@ class StockSite extends Component {
               })
               .then(res => res.json())
               .then((result) => {
-                localStorage.setItem('token', result.token);
-                this.setState({
-                    loggedIn: true,
-                    accountPage: true,
-                    isLoaded: false
-                });
-                this.getData();
+                if (result['username']) {
+                  error = {message: result['username'][0]};
+                  this.setState({
+                    error
+                  });
+                } else {
+                  localStorage.setItem('token', result.token);
+                  this.setState({
+                      loggedIn: true,
+                      accountPage: true,
+                      isLoaded: false
+                  });
+                  this.getData();
+                }
               });
         }
     }
