@@ -135,7 +135,7 @@ class Quote extends Component {
             {message}
           </div>
           <div className='row'>
-            <div className='col-sm-8'>
+            <div className='col-lg-8'>
               <div className='row'>
                 <Chart
                   chartData={ this.state.chartData }
@@ -156,7 +156,7 @@ class Quote extends Component {
                 </div>
               </div>
             </div>
-            <div className='col-sm-4'>
+            <div className='col-lg-4'>
               <StockList
                 cash ={ this.props.cash }
                 stocks={ this.props.stocks }

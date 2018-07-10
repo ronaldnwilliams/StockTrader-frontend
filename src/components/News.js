@@ -41,9 +41,7 @@ class News extends Component {
             if (this.state.collapse) {
               return <Article key={index} article={newsItem}/>;
             } else {
-              if (index < 2) {
-                return <Article key={index} article={newsItem}/>;
-              }
+                return (index < 2) ? <Article key={index} article={newsItem}/> : '';
             }
           })
           : <li className='list-group-item text-dark'>No news at this time.</li>}

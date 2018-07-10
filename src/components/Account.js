@@ -138,7 +138,6 @@ class Account extends Component {
     const todayLabel = new Date().toDateString()
     var chartData = [];
     if (this.props.balanceRange === '1d') {
-      var oneMinute =
       this.props.balanceChartData.forEach((data, index, arr) => {
         chartData.push({close: data.balance, label: data.time })
       });
@@ -161,6 +160,9 @@ class Account extends Component {
         case '5y':
           dailyBalBeforeSignup = 1259;
           break;
+        default:
+          dailyBalBeforeSignup = 24;
+          break;
       }
       dailyBalBeforeSignup -= this.props.dailyBalance.length;
       var today = Date.now();
@@ -182,7 +184,7 @@ class Account extends Component {
     return (
       <div>
         <div className='row'>
-          <div className='col-sm-8'>
+          <div className='col-lg-8'>
             <div className='row'>
               <Chart
                 chartData={chartData}
@@ -206,7 +208,7 @@ class Account extends Component {
               />
             </div>
           </div>
-          <div className='col-sm-4'>
+          <div className='col-lg-4'>
             <StockList
               cash={ this.props.cash }
               stocks={ this.props.stocks }

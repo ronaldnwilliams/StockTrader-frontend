@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import cat from './images/cat.jpg';
 import SiteNav from './components/SiteNav';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Account from './components/Account';
 import Quote from './components/Quote';
 import './App.css';
+//import cat from './images/cat.jpg';
 
 
 class StockSite extends Component {
@@ -159,11 +159,8 @@ class StockSite extends Component {
 
     // loop through each stock and add chart data.
     addChartsToStocks(stocks, chartResult, range) {
-      let today = new Date().toDateString();
       stocks.forEach((stock) => {
-          let stockDate = new Date(stock.purchase_date);
-          let stockChart = chartResult[stock.symbol]['chart'];
-          stock['chart'] = stockChart;
+          stock['chart'] = chartResult[stock.symbol]['chart'];
       });
     }
 
