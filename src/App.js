@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cat from './images/cat.jpg';
 import SiteNav from './components/SiteNav';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -416,7 +417,6 @@ class StockSite extends Component {
     render() {
         document.body.style.background = '#6441A5';
         document.body.style.color = 'white';
-        const loading = 'Loading...';
         const error = this.state.error;
         const message = error
           ? <div class="alert alert-warning">Error: {error.message}
@@ -469,7 +469,17 @@ class StockSite extends Component {
                     </div>;
                 }
             } else {
-                screen = loading;
+                screen =
+                <div className='text-white'>
+                  <div className='row justify-content-center align-items-center'>
+                    <h1>Loading...</h1>
+                  </div>
+                  <div className='row justify-content-center align-items-center'>
+                    <p>This is a free Herku App so it might be waking up
+                      <br/> Sorry for the wait!</p>
+                    <img src={cat} alt='sleepy cat' />
+                  </div>
+                </div>;
             }
         } else {
             if (this.state.signupPage) {
