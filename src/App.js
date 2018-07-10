@@ -31,7 +31,6 @@ class StockSite extends Component {
     // TODO: add live updates maybe make a switch; every second; dont hit database
     // TODO: add top gainers / losers
     // TODO: add top users / user trades
-    // TODO: sign up page; verify password
     getData = (data = 0, method = 0, range = this.state.balanceRange) => {
         if (this.state.loggedIn) {
             const initObject = this.getInitObject(data, method);
@@ -211,7 +210,7 @@ class StockSite extends Component {
       var x = new Date();
       var y = x.getUTCHours() - 4 + ':' +
       (x.getUTCMinutes() < 10
-        ? '0' + x.getUTCMinutes()
+        ? "0" + x.getUTCMinutes()
         : x.getUTCMinutes());
       var opening30minutes = true;
       var upToCurrentTime = false;

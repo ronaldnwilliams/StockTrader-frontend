@@ -30,7 +30,7 @@ class Signup extends Component {
               <div className='row justify-content-center align-items-center mx-auto'>
                 <h1>Welcome to Stock Trade<span className='text-warning'>R</span></h1>
               </div>
-              <div className='card bg-light w-50 mx-auto text-dark my-5 py-3'>
+              <div className='card bg-light mx-auto text-dark my-5 py-3'>
                 <div className='row justify-content-center align-items-center'>
                   <img src={logo} alt='logo' />
                 </div>
@@ -72,22 +72,22 @@ class Signup extends Component {
                     onChange={ this.handleChange }
                   />
                 </div>
-                <div className='row justify-content-center align-items-center mx-auto mt-3 w-50'>
+                <div className='row justify-content-center align-items-center mx-auto w-50 mt-3'>
                   <button
                     type="submit"
-                    className='btn btn-primary btn-block'>
+                    className='btn btn-primary btn-lg'>
                     Signup
                   </button>
                 </div>
               </div>
             </form>
-            <div className='card bg-light w-50 mx-auto text-dark my-5 py-3'>
+            <div className='card bg-light mx-auto text-dark my-5 py-3'>
               <div className='row justify-content-center align-items-center mx-auto mt-3'>
               <p>Already a user ?</p>
               </div>
               <div className='row justify-content-center align-items-center mx-auto w-50'>
                 <button
-                  className='btn btn btn-secondary btn-block'
+                  className='btn btn btn-secondary btn-lg'
                   onClick={ this.props.handleSignupPage }>
                    Login
                 </button>

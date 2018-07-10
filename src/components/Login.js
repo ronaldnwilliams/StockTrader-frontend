@@ -29,7 +29,7 @@ class Login extends Component {
               </div>
               {/* <div className='row justify-content-center align-items-center mx-auto'>
               </div> */}
-              <div className='card bg-light w-50 mx-auto text-dark mb-5 py-3'>
+              <div className='card bg-light  mx-auto text-dark mb-5 py-3'>
                 <div className='row justify-content-center align-items-center'>
                   <img src={logo} alt='logo' />
                 </div>
@@ -52,19 +52,19 @@ class Login extends Component {
                   />
                 </div>
                 <div className='row justify-content-center align-items-center mx-auto mt-3 w-50'>
-                  <button className='btn btn-primary btn-block' type="submit">
+                  <button className='btn btn-primary btn-lg' type="submit">
                     Login
                   </button>
                 </div>
               </div>
             </form>
-            <div className='card bg-light w-50 mx-auto text-dark my-5 py-3'>
+            <div className='card bg-light mx-auto text-dark my-5 py-3'>
               <div className='row justify-content-center align-items-center mx-auto mt-3'>
                 <p>Not a member?</p>
               </div>
               <div className='row justify-content-center align-items-center mx-auto w-50'>
                 <button
-                  className='btn btn btn-secondary btn-block'
+                  className='btn btn btn-secondary btn-lg'
                   onClick={ this.props.handleSignupPage }>
                    Signup
                 </button>
