@@ -381,7 +381,8 @@ class StockSite extends Component {
             balanceChartData: null,
             quoteSymbol: '',
             user: null,
-            error: null
+            error: null,
+            signupPage: false
         });
     }
 
