@@ -82,11 +82,18 @@ class StockSite extends Component {
                           for (var i=0; i<balanceChartData.length; i++) {
                             if (i < stock.chart.length) {
                               if (balanceChartData[i]['time'] === stock.chart[i]['minute']) {
-                                var stockPrice = stock.chart[i].close ?
-                                    Number(stock.chart[i].close) :
-                                    Number(stock.chart[i].marketClose);
-                                if (isNaN(stockPrice)) {
-                                  stockPrice = this.getStockPriceWhenNaN(i, stock)
+                                // go through chart data and try to find a
+                                // number that is not 0 or undefined else use
+                                // quoted previous close
+                                var stockPrice =
+                                  stock.chart[i].close ?
+                                    Number(stock.chart[i].close) !== 0 ? Number(stock.chart[i].close) :
+                                      Number(stock.chart[i].marketClose) !== 0 ? Number(stock.chart[i].marketClose) :
+                                      Number(stock.chart[i].marketAverage) !== 0 ? Number(stock.chart[i].marketAverage) :
+                                      'n/a' :
+                                    'n/a';
+                                if (isNaN(stockPrice) || stockPrice === 'n/a' || stockPrice === 0) {
+                                  stockPrice = stock.quote['previousClose'];
                                 }
                                 balanceChartData[i]['balance'] +=
                                   Number(stock.quantity) * stockPrice;
@@ -112,23 +119,6 @@ class StockSite extends Component {
                       });
                 });
         }
-    }
-
-    getStockPriceWhenNaN(i, stock) {
-      var haveStockPrice = false;
-      for (let j=i-1; j>0; j--) {
-        var stockPrice = stock.chart[j].close ?
-            Number(stock.chart[j].close) :
-            Number(stock.chart[j].marketClose);
-        if (!isNaN(stockPrice)) {
-          haveStockPrice = true;
-          break;
-        }
-      }
-      if (!haveStockPrice) {
-        stockPrice = stock.quote['previousClose'];
-      }
-      return stockPrice;
     }
 
     getInitObject(data, method) {
