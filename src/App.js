@@ -344,12 +344,10 @@ class StockSite extends Component {
         if (data['password'] !== data['rePassword']) {
           error = {message: `Passwords do not match.`};
           this.setState({ error: error });
-        }
-        if (data['username'].length < 4) {
+        } else if (data['username'].length < 4) {
           error = {message: `Username must be at least four characters long.`};
           this.setState({ error: error });
-        }
-        if (data['password'].length < 6) {
+        } else if (data['password'].length < 6) {
           error = {message: `Password must be at least six characters long.`};
           this.setState({ error: error });
         } else {
