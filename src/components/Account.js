@@ -187,6 +187,7 @@ class Account extends Component {
           </div>
           <div className='col-sm-4'>
             <StockList
+              cash={ this.props.cash }
               stocks={ this.props.stocks }
               handleSellStock={ this.props.handleSellStock }
               watchStocks={ this.props.watchStocks }

@@ -59,6 +59,10 @@ class StockList extends Component {
               handleSubmit={ this.props.handleQuote }
             />
           </li>
+          <li className='list-group-item bg-light border-dark rounded p-3'>
+            <strong className='text-dark ml-3'>Cash: </strong>
+            <span className='text-success ml-3'>{currencyFormat(this.props.cash)}</span>
+          </li>
           <ul className='list-group'>
               { this.props.stocks.map((stock) => {
                 return (
