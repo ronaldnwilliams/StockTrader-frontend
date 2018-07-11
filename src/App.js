@@ -97,10 +97,8 @@ class StockSite extends Component {
                                 stockPrice = stock.quote['previousClose'];
                               }
                               balanceChartData[i]['balance'] += Number(stock.quantity) * stockPrice;
-                              if (i === stock.chart.length - 1) {
-                                balanceChartData[i + 1]['balance'] += Number(stock.quantity) * stock.quote['latestPrice'];
-                              }
                             }
+                            balanceChartData[balanceChartData.length - 1]['balance'] += Number(stock.quantity) * Number(stock.quote.latestPrice);
                           });
                           balanceChartData.forEach((data) => {
                             data['balance'] += Number(user.portfolio.cash);
