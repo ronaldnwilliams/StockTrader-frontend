@@ -82,12 +82,12 @@ class StockSite extends Component {
                       Promise.all([chartDataAPI, quoteDataAPI]).then(() => {
                         if (range === '1d') {
                           stocks.forEach((stock) => {
-                            for (var i=0; i<balanceChartData.length; i++) {
+                            for (var i=0; i<balanceChartData.length - 1; i++) {
                               // go through chart data and try to find a
                               // number that is not 0 or undefined else use
                               // quoted previous close
                               var stockPrice =
-                                stock.chart[i].close ?
+                                typeof stock.chart[i].close ?
                                   Number(stock.chart[i].close) !== 0 ? Number(stock.chart[i].close) :
                                     Number(stock.chart[i].marketClose) !== 0 ? Number(stock.chart[i].marketClose) :
                                     Number(stock.chart[i].marketAverage) !== 0 ? Number(stock.chart[i].marketAverage) :
@@ -97,6 +97,9 @@ class StockSite extends Component {
                                 stockPrice = stock.quote['previousClose'];
                               }
                               balanceChartData[i]['balance'] += Number(stock.quantity) * stockPrice;
+                              if (i === stock.chart.length - 1) {
+                                balanceChartData[i + 1]['balance'] += Number(stock.quantity) * stock.quote['latestPrice'];
+                              }
                             }
                           });
                           balanceChartData.forEach((data) => {
