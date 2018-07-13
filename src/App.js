@@ -86,14 +86,14 @@ class StockSite extends Component {
                               // go through chart data and try to find a
                               // number that is not 0 or undefined else use
                               // quoted previous close
-                              var stockPrice =
-                                typeof stock.chart[i].close ?
-                                  Number(stock.chart[i].close) !== 0 ? Number(stock.chart[i].close) :
-                                    Number(stock.chart[i].marketClose) !== 0 ? Number(stock.chart[i].marketClose) :
-                                    Number(stock.chart[i].marketAverage) !== 0 ? Number(stock.chart[i].marketAverage) :
-                                    'n/a' :
-                                  'n/a';
-                              if (isNaN(stockPrice) || stockPrice === 'n/a' || stockPrice === 0) {
+                              var stockPrice;
+                              if (typeof stock.chart[i].close !== "undefined" && Number(stock.chart[i].close) > 0) {
+                                stockPrice = stock.chart[i].close;
+                              } else if (typeof stock.chart[i].marketClose !== "undefined" && Number(stock.chart[i].marketClose) > 0) {
+                                stockPrice = stock.chart[i].marketClose;
+                              } else if (typeof stock.chart[i].marketAverage !== "undefined" && Number(stock.chart[i].marketAverage) > 0) {
+                                stockPrice = stock.chart[i].marketAverage;
+                              } else {
                                 stockPrice = stock.quote['previousClose'];
                               }
                               balanceChartData[i]['balance'] += Number(stock.quantity) * stockPrice;
