@@ -5,7 +5,7 @@ class SiteNav extends Component {
   render() {
     if (this.props.loggedIn) {
         return (
-          <nav className='navbar d-flex bg-dark mb-5 w-100'>
+          <nav className='navbar d-flex bg-dark mb-3 w-100'>
             {
               this.props.accountPage
                 ? <button className='btn btn-link float-left'><span className='text-white'>Account</span></button>

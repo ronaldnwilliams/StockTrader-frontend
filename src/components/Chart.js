@@ -67,7 +67,8 @@ class Chart extends Component {
             }]
         };
         return (
-          <div className='w-100 border border-white rounded bg-dark mb-2'>
+          <div className='w-100 p-3 border border-white rounded bg-dark mb-3'>
+            <div className='row'>
               <Line
                 data={ chartData }
               	options={{
@@ -95,9 +96,6 @@ class Chart extends Component {
                   },
                   scales: {
                     yAxes: [{
-                      scaleLabel: {
-                        display: true,
-                      },
                       gridLines: {
                         color: 'rgb(255, 255, 255)',
                         drawBorder: false,
@@ -105,20 +103,14 @@ class Chart extends Component {
                         drawTicks: false,
                       },
                       ticks: {
-                        callback: function(value, index, values) {
-                          if (values.length > 150) {
-                            // Hide the label of every 2nd dataset. return null to hide the grid line too
-            								return index % 2 === 0 ? value : '';
-                          } else {
-                            return value;
-                          }
-          							},
+                        autoSkipPadding: 5,
+                        padding: 5,
+                        autoSkip: true,
+                        maxTicksLimit: 20,
                         fontColor: '#fff',
-                        display: true,
                       }
                     }],
                     xAxes: [{
-                      offset: true,
                       gridLines: {
                         color: 'rgb(255, 255, 255)',
                         drawBorder: false,
@@ -126,25 +118,23 @@ class Chart extends Component {
                         drawTicks: false,
                       },
                       ticks: {
-                        callback: function(value, index, values) {
-                          if (values.length > 150) {
-                            // Hide the label of every 2nd dataset. return null to hide the grid line too
-            								return index % 2 === 0 ? value : '';
-                          } else {
-                            return value;
-                          }
-          							},
-                        display: true,
+                        autoSkipPadding: 5,
+                        padding: 5,
+                        autoSkip: true,
+                        maxTicksLimit: 20,
                         fontColor: '#fff',
                       }
                     }]
                   }
                 }}
               />
+            </div>
+            <div className='row'>
               <ChartButtons
                 balanceRange={ this.props.balanceRange }
                 handleRangeChange={ this.props.handleRangeChange }
               />
+            </div>
           </div>
         );
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SiteNav from './components/SiteNav';
+import IndicesBar from './components/IndicesBar';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Account from './components/Account';
@@ -28,7 +29,6 @@ class StockSite extends Component {
         this.getData();
     }
 
-    // TODO: add indicies https://api.iextrading.com/1.0/stock/DIA/app-global-data
     // TODO: add live updates maybe make a switch; every second; dont hit database
     // TODO: add top gainers / losers
     // TODO: add top users / user trades
@@ -493,6 +493,7 @@ class StockSite extends Component {
             />
             <div className='container'>
               { message }
+              <IndicesBar />
               { screen }
             </div>
           </div>

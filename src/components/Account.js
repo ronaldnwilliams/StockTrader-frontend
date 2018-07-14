@@ -182,43 +182,41 @@ class Account extends Component {
       });
     }
     return (
-      <div>
-        <div className='row'>
-          <div className='col-lg-8'>
-            <div className='row'>
-              <Chart
-                chartData={chartData}
-                balanceRange={ this.props.balanceRange }
-                handleRangeChange={ this.handleBalanceRangeChange }
-              />
-            </div>
-            <div className='row'>
-              <BalanceTable
-                cash={ this.props.cash }
-                stocks={ this.props.stocks }
-                marketValue={ marketValue }
-                totalBalance={ totalBalance }
-              />
-            </div>
-            <div className='row'>
-              <StockTable
-                stocks={ this.props.stocks }
-                handleSellStock={ this.props.handleSellStock }
-                handleQuotePage={ this.handleQuotePage }
-              />
-            </div>
-          </div>
-          <div className='col-lg-4'>
-            <StockList
-              cash={ this.props.cash }
-              stocks={ this.props.stocks }
-              handleSellStock={ this.props.handleSellStock }
-              watchStocks={ this.props.watchStocks }
-              handleAddWatchStock={ this.props.handleAddWatchStock }
-              handleRemoveWatchStock={ this.props.handleRemoveWatchStock }
-              handleQuote={ this.props.handleQuotePage }
+      <div className='row'>
+        <div className='col-lg-8'>
+          <div className=''>
+            <Chart
+              chartData={chartData}
+              balanceRange={ this.props.balanceRange }
+              handleRangeChange={ this.handleBalanceRangeChange }
             />
           </div>
+          <div className=''>
+            <BalanceTable
+              cash={ this.props.cash }
+              stocks={ this.props.stocks }
+              marketValue={ marketValue }
+              totalBalance={ totalBalance }
+            />
+          </div>
+          <div className=''>
+            <StockTable
+              stocks={ this.props.stocks }
+              handleSellStock={ this.props.handleSellStock }
+              handleQuotePage={ this.handleQuotePage }
+            />
+          </div>
+        </div>
+        <div className='col-lg-4'>
+          <StockList
+            cash={ this.props.cash }
+            stocks={ this.props.stocks }
+            handleSellStock={ this.props.handleSellStock }
+            watchStocks={ this.props.watchStocks }
+            handleAddWatchStock={ this.props.handleAddWatchStock }
+            handleRemoveWatchStock={ this.props.handleRemoveWatchStock }
+            handleQuote={ this.props.handleQuotePage }
+          />
         </div>
       </div>
     );
