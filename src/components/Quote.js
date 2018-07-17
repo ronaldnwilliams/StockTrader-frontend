@@ -156,7 +156,7 @@ class Quote extends Component {
                 </div>
               </div>
             </div>
-            <div className='col-lg-4 m-1'>
+            <div className='col-lg-4 my-1'>
               <StockList
                 cash ={ this.props.cash }
                 stocks={ this.props.stocks }
