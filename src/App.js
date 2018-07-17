@@ -90,8 +90,6 @@ class StockSite extends Component {
                               var stockPrice;
                               if (typeof stock.chart[i].close !== "undefined" && Number(stock.chart[i].close) > 0) {
                                 stockPrice = stock.chart[i].close;
-                              } else if (typeof stock.chart[i].marketClose !== "undefined" && Number(stock.chart[i].marketClose) > 0) {
-                                stockPrice = stock.chart[i].marketClose;
                               } else if (typeof stock.chart[i].marketAverage !== "undefined" && Number(stock.chart[i].marketAverage) > 0) {
                                 stockPrice = stock.chart[i].marketAverage;
                               } else {
