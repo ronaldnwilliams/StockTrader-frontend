@@ -32,6 +32,7 @@ class StockSite extends Component {
     // TODO: add live updates maybe make a switch; every second; dont hit database
     // TODO: add top gainers / losers
     // TODO: add top users / user trades
+    // TODO: add charts to IndicesBar
     getData = (data = 0, method = 0, range = this.state.balanceRange) => {
         if (this.state.loggedIn) {
             const initObject = this.getInitObject(data, method);

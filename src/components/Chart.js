@@ -43,29 +43,57 @@ function ChartButtons(props) {
 }
 
 class Chart extends Component {
+    getChartData(chartLabels, chartPrices, purchasedPrice) {
+      if (purchasedPrice.length > 0) {
+        return {
+            labels: chartLabels,
+            datasets: [{
+              label: 'chart',
+              data: chartPrices
+            },
+            {
+              label: 'cost',
+              borderDash: [5, 5],
+              data: purchasedPrice,
+              borderColor: '#ffff00',
+            }]
+        };
+      } else {
+        return {
+            labels: chartLabels,
+            datasets: [{
+              label: 'chart',
+              data: chartPrices
+            }]
+        };
+      }
+    }
+
     render() {
         var chartLabels = [];
         var chartPrices = [];
+        var purchasedPrice = [];
         if (this.props.chartData !== null) {
             this.props.chartData.forEach((data) => {
                 if (data.close) {
                     chartPrices.push(data.close);
                     chartLabels.push(data.label);
+                    if (this.props.startPrice !== null) {
+                      purchasedPrice.push(this.props.startPrice);
+                    }
                 } else if (data.marketAverage !== -1) {
                     chartPrices.push(data.marketAverage);
                     chartLabels.push(data.label);
+                    if (this.props.startPrice !== null) {
+                      purchasedPrice.push(this.props.startPrice);
+                    }
                 }
             });
         }
         var firstPrice = chartPrices[0]
         var lastPrice = chartPrices[chartPrices.length - 1]
         var backgroundColor = firstPrice < lastPrice ? 'rgb(102, 255, 153)' : 'rgb(255, 51, 51)';
-        const chartData = {
-            labels: chartLabels,
-            datasets: [{
-                data: chartPrices
-            }]
-        };
+        const chartData = this.getChartData(chartLabels, chartPrices, purchasedPrice);
         return (
           <div className='w-100 p-3 border border-white rounded bg-dark mb-3'>
             <div className='row'>

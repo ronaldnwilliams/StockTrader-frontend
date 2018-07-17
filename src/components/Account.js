@@ -186,7 +186,8 @@ class Account extends Component {
         <div className='col-lg-8'>
           <div className=''>
             <Chart
-              chartData={chartData}
+              chartData={ chartData }
+              startPrice={ 100000 }
               balanceRange={ this.props.balanceRange }
               handleRangeChange={ this.handleBalanceRangeChange }
             />

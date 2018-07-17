@@ -129,6 +129,14 @@ class Quote extends Component {
             <button className='btn btn-light' onClick={this.handleErrorClear}>Close</button>
           </div>
         : '';
+      var ownStock = false;
+      var stockPurchasePrice;
+      this.props.stocks.forEach((stock) => {
+        if (stock.symbol.toUpperCase() === this.state.currentSymbol.toUpperCase()) {
+          ownStock = true;
+          stockPurchasePrice = stock.purchase_price;
+        }
+      })
       return (
         <div>
           <div>
@@ -139,6 +147,7 @@ class Quote extends Component {
               <div className='row'>
                 <Chart
                   chartData={ this.state.chartData }
+                  startPrice={ ownStock ? stockPurchasePrice : null }
                   balanceRange={ this.state.quoteRange }
                   handleRangeChange={ this.handleRangeChange }
                 />
