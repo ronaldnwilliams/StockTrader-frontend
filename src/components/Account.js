@@ -187,7 +187,7 @@ class Account extends Component {
           <div className=''>
             <Chart
               chartData={ chartData }
-              startPrice={ 100000 }
+              startPrice={ this.props.balanceRange === '1d' ? chartData[0].close : 100000 }
               balanceRange={ this.props.balanceRange }
               handleRangeChange={ this.handleBalanceRangeChange }
             />
