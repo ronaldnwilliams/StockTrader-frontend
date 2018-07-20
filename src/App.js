@@ -337,7 +337,7 @@ class StockSite extends Component {
               })
               .then(res => res.json())
               .then((result) => {
-                console.log(result);
+                // check for username error
                 if (result['username'][0] === "A user with that username already exists.") {
                   error = {message: result['username'][0]};
                   this.setState({
