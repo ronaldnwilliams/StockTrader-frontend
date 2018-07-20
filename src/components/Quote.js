@@ -147,7 +147,15 @@ class Quote extends Component {
               <div className='row'>
                 <Chart
                   chartData={ this.state.chartData }
-                  startPrice={ ownStock ? stockPurchasePrice : null }
+                  // check if own sotck
+                  // then if rnage is 1d show open price else cost basis
+                  // else null
+                  startPrice={ ownStock ? (this.state.quoteRange === '1d' ?
+                      (typeof this.state.chartData[0].close !== "undefined" &&
+                       Number(this.state.chartData[0].close) > 0 ?
+                        this.state.chartData[0].close :
+                        this.state.chartData[0].marketAverage) :
+                        stockPurchasePrice) : null }
                   balanceRange={ this.state.quoteRange }
                   handleRangeChange={ this.handleRangeChange }
                 />

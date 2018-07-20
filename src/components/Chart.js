@@ -52,7 +52,7 @@ class Chart extends Component {
               data: chartPrices
             },
             {
-              label: 'cost',
+              label: this.props.balanceRange === '1d' ? 'open' : 'cost',
               borderDash: [5, 5],
               data: purchasedPrice,
               borderColor: '#ffff00',
