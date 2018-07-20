@@ -337,7 +337,8 @@ class StockSite extends Component {
               })
               .then(res => res.json())
               .then((result) => {
-                if (result['username']) {
+                console.log(result);
+                if (result['username'][0] === "A user with that username already exists.") {
                   error = {message: result['username'][0]};
                   this.setState({
                     error
@@ -401,7 +402,7 @@ class StockSite extends Component {
         document.body.style.color = 'white';
         const error = this.state.error;
         const message = error
-          ? <div class="alert alert-warning">Error: {error.message}
+          ? <div className="alert alert-warning">Error: {error.message}
               <button className='btn btn-light' onClick={this.handleAppErrorClear}>Close</button>
             </div>
           : '';
