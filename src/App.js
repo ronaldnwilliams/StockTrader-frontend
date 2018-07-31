@@ -33,10 +33,11 @@ class StockSite extends Component {
     // TODO: add top gainers / losers
     // TODO: add top users / user trades
     // TODO: add charts to IndicesBar
+    // TODO: prompt for quantity with sell button
     getData = (data = 0, method = 0, range = this.state.balanceRange) => {
         if (this.state.loggedIn) {
             const initObject = this.getInitObject(data, method);
-            // https://stock-site-rnw.herokuapp.com/
+            //const backendURL = 'http://localhost:8000/current_user/';
             const backendURL = 'https://stock-site-rnw.herokuapp.com/current_user/';
             fetch(backendURL, initObject)
               .then((res) => {
@@ -88,9 +89,9 @@ class StockSite extends Component {
                               // number that is not 0 or undefined else use
                               // quoted previous close
                               var stockPrice;
-                              if (typeof stock.chart[i].close !== "undefined" && Number(stock.chart[i].close) > 0) {
+                              if (typeof stock.chart[i] !== 'undefined' && Number(stock.chart[i].close) > 0) {
                                 stockPrice = stock.chart[i].close;
-                              } else if (typeof stock.chart[i].marketAverage !== "undefined" && Number(stock.chart[i].marketAverage) > 0) {
+                              } else if (typeof stock.chart[i] !== "undefined" && Number(stock.chart[i].marketAverage) > 0) {
                                 stockPrice = stock.chart[i].marketAverage;
                               } else {
                                 stockPrice = stock.quote['previousClose'];
@@ -167,10 +168,10 @@ class StockSite extends Component {
     setBalanceChartData() {
       var balanceChartData = [];
       var x = new Date();
-      var y = x.getUTCHours() - 4 + ':' +
-      (x.getUTCMinutes() < 10
-        ? "0" + x.getUTCMinutes()
-        : x.getUTCMinutes());
+      var currentHour = x.getUTCHours() - 4;
+      console.log(typeof currentHour);
+      var y = (currentHour < 10 ? "0" + currentHour : currentHour) + ':' +
+      (x.getUTCMinutes() < 10 ? "0" + x.getUTCMinutes() : x.getUTCMinutes());
       var opening30minutes = true;
       var upToCurrentTime = false;
       for(var i=9; i<16; i++) {
@@ -287,8 +288,9 @@ class StockSite extends Component {
     handleLogin = (e, data) => {
         e.preventDefault();
         var error;
-        // https://stock-site-rnw.herokuapp.com/token-auth/
-        fetch('https://stock-site-rnw.herokuapp.com/token-auth/', {
+        //const loginUrl = 'http://localhost:8000/token-auth/'
+        const loginUrl = 'https://stock-site-rnw.herokuapp.com/token-auth/'
+        fetch(loginUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -327,8 +329,9 @@ class StockSite extends Component {
           error = {message: `Password must be at least six characters long.`};
           this.setState({ error: error });
         } else {
-          // https://stock-site-rnw.herokuapp.com/users/
-          fetch('https://stock-site-rnw.herokuapp.com/users/', {
+          //const signupUrl = 'http://localhost:8000/users/'
+          const signupUrl = 'https://stock-site-rnw.herokuapp.com/users/'
+          fetch(signupUrl, {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json'

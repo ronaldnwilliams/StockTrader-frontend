@@ -87,9 +87,9 @@ class Quote extends Component {
 
     handleQuote = (range = this.state.quoteRange) => {
       const symbol = this.props.quoteSymbol;
-      const url = 'https://api.iextrading.com/1.0/stock/' +
+      const quoteUrl = 'https://api.iextrading.com/1.0/stock/' +
           symbol + '/batch?types=quote,news,chart&range=' + range;
-      fetch(url)
+      fetch(quoteUrl)
           .then((res) => res.json())
           .then((result) => {
             this.setState({
